@@ -1,0 +1,90 @@
+//
+   Created by Juan Carlos on 28/02/2018.
+
+doctype html
+html(lang='en')
+    head
+        title Login V15
+        meta(charset='UTF-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        // ===============================================================================================
+        link(rel='icon', type='image/png', href='images/icons/favicon.ico')
+        // ===============================================================================================
+        link(rel='stylesheet', type='text/css', href='vendor/bootstrap/css/bootstrap.min.css')
+        // ===============================================================================================
+        link(rel='stylesheet', type='text/css', href='fonts/font-awesome-4.7.0/css/font-awesome.min.css')
+        // ===============================================================================================
+        link(rel='stylesheet', type='text/css', href='fonts/Linearicons-Free-v1.0.0/icon-font.min.css')
+        // ===============================================================================================
+        link(rel='stylesheet', type='text/css', href='vendor/animate/animate.css')
+        // ===============================================================================================
+        link(rel='stylesheet', type='text/css', href='vendor/css-hamburgers/hamburgers.min.css')
+        // ===============================================================================================
+        link(rel='stylesheet', type='text/css', href='vendor/animsition/css/animsition.min.css')
+        // ===============================================================================================
+        link(rel='stylesheet', type='text/css', href='vendor/select2/select2.min.css')
+        // ===============================================================================================
+        link(rel='stylesheet', type='text/css', href='vendor/daterangepicker/daterangepicker.css')
+        // ===============================================================================================
+        link(rel='stylesheet', type='text/css', href='css/util.css')
+        link(rel='stylesheet', type='text/css', href='css/main.css')
+        // ===============================================================================================
+    body
+        .limiter
+            .container-login100
+                .wrap-login100
+                    .login100-form-title(style='background-image: url(https://i.ytimg.com/vi/JgrMQ9rcM9U/maxresdefault.jpg);padding:.5em;')
+                        img.logo(src="images/logo.png")
+                        
+                    form.login100-form.validate-form(method="POST", action="/login",style="padding-top:20px;")
+                        span.login100-form-title-1(style="color:#555555;margin-bottom:.5em")
+                                | Levanta tu Reporte
+                        .wrap-input100.validate-input.m-b-26(data-validate=typeof pass === "undefined" ? "Usuario es requerido" : "Usuario Incorrecto",)
+                            span.label-input100 Empresa
+                            select.input100(style="border: 0;height: 45px;",type='text' ,name='username', placeholder='Ingresa tu Usuario' value=user)
+                                each empresa in emp
+                                    option(value="#{empresa.idempresa}") #{empresa.nombre_empresa}
+                            span.focus-input100
+                        .wrap-input100.validate-input.m-b-18.col-md-5
+                            span.label-input100(style="left: -85px;") Token
+                            input.input100(style="border: 0;height: 45px;",type='text' ,name='correo', placeholder='Tu Token' value=user)
+                            span.focus-input100
+                        .wrap-input100.validate-input.m-b-18.col-md-5
+                            span.label-input100(style="left: -85px;") Categoria
+                            select.input100(style="border: 0;height: 45px;",type='text' ,name='username', placeholder='Ingresa tu Usuario' value=user)
+                                each categoria in cat
+                                    option(value="#{categoria.idcategoria}") #{categoria.nombre_cat}
+                            span.focus-input100
+                        .wrap-input100.validate-input.m-b-18.col-md-5
+                            span.label-input100(style="left: -85px;") Correo
+                            input.input100(style="border: 0;height: 45px;",type='text' ,name='correo', placeholder='Tu Correo' value=user)
+                            span.focus-input100
+                        .wrap-input100.validate-input.m-b-18.col-md-5
+                            span.label-input100(style="left: -85px;") Telefono
+                            input.input100(style="border: 0;height: 45px;",type='text' ,name='correo', placeholder='Tu Telefono' value=user)
+                            span.focus-input100
+                        .wrap-input100.validate-input.m-b-18(data-validate=typeof pass === "undefined" ? "Password es requerido" : "Password Incorrecto", class=typeof pass === "undefined" ? undefined : "alert-validate")
+                            span.label-input100 Descripción
+                            textarea.input100(type='text' ,name='pass', placeholder='Escribe tu Problema Detalladamente', rows="5" )
+                            span.focus-input100
+
+
+                        .container-login100-form-btn
+                            button.login100-form-btn
+                                | Levantar
+        // ===============================================================================================
+        script(src='vendor/jquery/jquery-3.2.1.min.js')
+        // ===============================================================================================
+        script(src='vendor/animsition/js/animsition.min.js')
+        // ===============================================================================================
+        script(src='vendor/bootstrap/js/popper.js')
+        script(src='vendor/bootstrap/js/bootstrap.min.js')
+        // ===============================================================================================
+        script(src='vendor/select2/select2.min.js')
+        // ===============================================================================================
+        script(src='vendor/daterangepicker/moment.min.js')
+        script(src='vendor/daterangepicker/daterangepicker.js')
+        // ===============================================================================================
+        script(src='vendor/countdowntime/countdowntime.js')
+        // ===============================================================================================
+        script(src='js/main.js')

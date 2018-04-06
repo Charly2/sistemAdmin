@@ -1,0 +1,42 @@
+
+extends layout
+
+block content
+    div
+        .page-title
+            .title_left
+                h3
+                    | Administracion de usuarios
+            .title_right
+                .col-md-5.col-sm-5.col-xs-12.form-group.pull-right.top_search(style="display:flex;justify-content:flex-end;")
+                    span.input-group
+                        a(href="/usuario/new")
+                            button(type="button").btn.btn-primary Nuevo usuario
+        .col-md-12.col-sm-12.col-xs-12
+            .x_panel
+                .x_content
+                    table#datatable-fixed-header.table.table-striped.table-bordered
+                        thead
+                            tr
+                                th Id
+                                th Nombre
+                                th Correo
+                                th Rol
+                                th n° Reportes
+                                th Acciones
+                        tbody
+                            each dato in datos
+                                tr.even.pointer
+                                    td.a-center #{dato.idusuario}
+                                    td.a-center #{dato.nombre}
+                                    td.a-center #{dato.correo}
+                                    td.a-center #{dato.rol}
+                                    td.a-center 546
+                                    td
+                                        a(href="#") Borrar
+                                        span |
+                                        a(href="/usuario/#{dato.idusuario}/editar") Editar
+                            //each dato in datos
+                                tr.even.pointer
+                                    td.a-center
+

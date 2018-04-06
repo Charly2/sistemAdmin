@@ -1,0 +1,43 @@
+
+extends layout
+
+block content
+    div
+        .page-title
+            .title_left
+                h3
+                    | Historial reportes
+            .title_right
+                .col-md-5.col-sm-5.col-xs-12.form-group.pull-right.top_search(style="display:flex;justify-content:flex-end;")
+                    span.input-group
+                        a(href="/new-report")
+                            button(type="button").btn.btn-primary Nuevo reporte
+
+        .col-md-12.col-sm-12.col-xs-12
+            .x_panel
+
+                .x_content
+                    
+                    table#datatable-fixed-header.table.table-striped.table-bordered
+                        thead
+                            tr
+                                th Id
+                                th Nombre
+                                th Correo
+                                th Numero
+                                th Fecha
+                                th Estado
+                                th Operaciones
+                        tbody
+                            each dato in datos
+                                tr.even.pointer
+                                    td.a-center #{dato.idreporte}
+                                    td.a-center #{dato.nombreReporte}
+                                    td.a-center #{dato.correocliente}
+                                    td.a-center #{dato.telefono1}
+                                    td.a-center #{new Date(dato.fechaini).toLocaleString('en-GB', { timeZone: 'UTC' }).split(',')[0]}
+                                    td.a-center #{dato.idestado}
+                                    td.a-center
+                                        a.green(href="/reporte_empresa/#{dato.idreporte}") Ver
+
+

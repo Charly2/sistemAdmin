@@ -1,0 +1,39 @@
+
+extends layout
+
+block content
+    div
+        .page-title
+            .title_left
+                h3
+                    | Lista de Empresas
+            .title_right
+                .col-md-5.col-sm-5.col-xs-12.form-group.pull-right.top_search(style="display:flex;justify-content:flex-end;")
+                    span.input-group
+                        a(href="/new-company")
+                            button(type="button").btn.btn-primary Nueva empresa
+
+        .col-md-12.col-sm-12.col-xs-12
+            .x_panel
+                .x_content
+                    table#datatable-fixed-header.table.table-striped.table-bordered
+                        thead
+                            tr
+                                th Id
+                                th Nombre
+                                th Correo
+                                th Telefono
+                                th n° Reportes
+                                th
+                        tbody
+                            tr.even.pointer
+                                td.a-center 1
+                                td.a-center Devinc
+                                td.a-center Devi@gmail.com
+                                td.a-center 554875125
+                                td.a-center 122
+                                td.a-center acciones
+                            //each dato in datos
+                                tr.even.pointer
+                                    td.a-center
+

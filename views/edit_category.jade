@@ -1,0 +1,50 @@
+extends layout
+
+block content
+    div
+        .page-title
+            .title_left
+                h3 Nueva categoría
+            .title_right
+                .col-md-5.col-sm-5.col-xs-12.form-group.pull-right.top_search
+                    .input-group
+                        input.form-control(type='text', placeholder='Search for...')
+                        span.input-group-btn
+                            button.btn.btn-default(type='button') Go!
+        .clearfix
+        .row
+            .col-md-12.col-sm-12.col-xs-12
+                .x_panel
+                    .x_title
+                        ul.nav.navbar-right.panel_toolbox
+                            li
+                                a.collapse-link
+                                    i.fa.fa-chevron-up
+                            li.dropdown
+                                a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
+                                    i.fa.fa-wrench
+                                ul.dropdown-menu(role='menu')
+                                    li
+                                        a(href='#') Settings 1
+                                    li
+                                        a(href='#') Settings 2
+                            li
+                                a.close-link
+                                    i.fa.fa-close
+                        .clearfix
+                    .x_content
+                        form.form-horizontal.form-label-left(action="/categoria/#{datos.idcategoria}/editar" method="post")
+
+                            .form-group
+                                label.control-label.col-md-3.col-sm-3.col-xs-12(for='nombre')
+                                    | Nombre de la categoría
+                                    span.required *
+                                .col-md-6.col-sm-6.col-xs-12
+                                    input.form-control.col-md-7.col-xs-12(type='text', id="nombre", name="nombre", required='required' value="#{datos.nombre_cat}")
+                            .form-group
+                                label.control-label.col-md-3.col-sm-3.col-xs-12 Prioridad
+                                .col-md-6.col-sm-6.col-xs-12
+                                    input.form-control.col-md-7.col-xs-12(type="number" name="prioridad" value="#{datos.prioridad_cat}" max="10" min="0")
+                            .form-group
+                                .col-md-7.center
+                                    button(id="send" type="submit" class="btn btn-success") Actualizar

@@ -1,0 +1,120 @@
+extends layout
+
+block content
+    div
+        //.page-title
+            .title_left
+                h3 Nuevo Reporte
+            .title_right
+                .col-md-5.col-sm-5.col-xs-12.form-group.pull-right.top_search
+                    .input-group
+                        input.form-control(type='text', placeholder='Search for...')
+                        span.input-group-btn
+                            button.btn.btn-default(type='button') Go!
+        .clearfix
+        .row
+            .col-md-12.col-sm-12.col-xs-12
+                .x_panel
+                    .x_title
+                        h2
+                            | Reporte de Local
+                            small
+                        .clearfix
+                    .x_content
+                        form#reporte.form-horizontal.form-label-left.input_mask(action="/reporte_local" method="post")
+
+
+                            .col-md-6.col-sm-6.col-xs-12.form-group.has-feedback(style="display:none")
+                                input#ma.form-control.has-feedback-left(type='text',  placeholder='Propiedades' name="prop")
+                                span.fa.fa-user.form-control-feedback.left(aria-hidden='true')
+
+                            .col-md-6.col-sm-6.col-xs-12.form-group.has-feedback
+                                input#inputSuccess2.form-control.has-feedback-left(type='text',  placeholder='Nombre del Cliente' name="nombre")
+                                span.fa.fa-user.form-control-feedback.left(aria-hidden='true')
+
+                            .col-md-6.col-sm-6.col-xs-12.form-group.has-feedback
+                                input#inputSuccess4.form-control.has-feedback-right(type='email', placeholder='Correo del Cliente' name="correo")
+                                span.fa.fa-envelope.form-control-feedback.right(aria-hidden='true')
+
+                            .col-md-6.col-sm-6.col-xs-12.form-group.has-feedback
+                                input#inputSuccess6.form-control.has-feedback-left(data-inputmask="'mask' : '(99) 9999-9999'",type='text', placeholder='Telefono del Cliente' name="telefono")
+                                span.fa.fa-phone.form-control-feedback.left(aria-hidden='true')
+
+                            .col-md-6.col-sm-6.col-xs-12.form-group.has-feedback
+                                input#inputSuccess9.form-control(data-inputmask="'mask' : '(99) 9999-9999'",type='text', placeholder='Otro Telefono' name="telefono2")
+                                span.fa.fa-phone.form-control-feedback.right(aria-hidden='true')
+
+                            .col-md-6.col-sm-6.col-xs-12.form-group.no-padding
+                                label.control-label.col-md-4.col-sm-3.col-xs-3(style="text-align:left") Categoria
+                                .col-md-8.col-sm-9.col-xs-9
+                                    select.form-control(name="categoria")
+                                        each categoria in cat
+                                           option(value="#{categoria.idcategoria}") #{categoria.nombre_cat}
+
+
+
+                            .col-md-6.col-sm-6.col-xs-12.form-group.has-feedback(style="margin-bottom:0")
+                                label.control-label.col-md-4.col-sm-3.col-xs-3(style="text-align:left") Fecha de Entrega
+                                .col-md-8.col-sm-9.col-xs-9.no-padding
+                                    input#single_cal4.form-control.has-feedback-right(name="fechaentrega" type='text', placeholder='First Name', aria-describedby='inputSuccess2Status4')
+                                    span.fa.fa-calendar.form-control-feedback.right(aria-hidden='true')
+
+                            .col-md-12.col-sm-12.col-xs-12.form-group.has-feedback.no-padding
+                                label.control-label.col-md-12.col-sm-12.col-xs-12(style="text-align:left") Descipción
+                                .col-md-12.col-sm-12.col-xs-12
+                                    textarea.form-control(rows='3', placeholder='Descipción Completa del Problema' name="descripcion")
+
+                            .col-md-12.col-sm-12.col-xs-12.form-group.has-feedback.no-padding
+                                label.control-label.col-md-12.col-sm-12.col-xs-12(style="text-align:left") Propiedades
+                                .col-md-6.col-sm-6.col-xs-12(style="margin-top:1em")
+                                    .col-md-6.col-sm-6.form-group
+                                        input#clave.form-control(type='text', placeholder='Propiedad')
+                                    .col-md-6.col-sm-6.form-group
+                                        input#valor.form-control(type='text', placeholder='Valor')
+                                    .col-md-12.col-sm-12(style="text-align:center")
+                                        a.btn.btn-primary#addProp() Agregar
+                                .col-md-6.col-sm-6.col-xs-12(style="margin-top:1em")
+
+                                    ul#listProp
+
+
+
+                        .ln_solid
+                        .form-group
+                            .col-md-12.col-sm-12.col-xs-12(style="text-align: center;")
+                                button.btn.btn-success.enviar(type='submit') Guardar
+        script(type="text/javascript").
+            var props = "";
+
+            setTimeout(function(){
+                document.querySelector(".btn.btn-success.enviar").addEventListener('click', function () {
+                    //$('#pro').val(props);
+                    $('#reporte').submit();
+                    alert("sd");
+                });
+            },500);
+
+
+            setTimeout(function () {
+                document.querySelector("#addProp").addEventListener('click', function () {
+                    add($('#clave'), $('#valor'));
+                });
+            }, 500);
+
+
+            function add(c,v){
+                let aux ="";
+                if (props==""){ aux = c.val() +' : '+ v.val();}
+                else{  aux = ','+c.val() +' : '+ v.val();}
+                props += aux;
+                print(aux);
+                $('#ma').val(props);
+                c.val('');
+                v.val('');
+            }
+
+            function print(x){
+                var li = document.createElement('li')
+                li.innerHTML = x.replace(',', '');
+                document.getElementById('listProp').appendChild(li)
+            }

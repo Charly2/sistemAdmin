@@ -1,0 +1,95 @@
+// sidebar menu
+#sidebar-menu.main_menu_side.hidden-print.main_menu
+  .menu_section
+    h3 General
+    ul.nav.side-menu
+      li
+        a(href="/app")
+          i.fa.fa-home
+          |  Inicio
+      li
+        a
+          i.fa.fa-bar-chart-o
+          |  Analisis de datos
+      li
+        a
+          i.fa.fa-edit
+          |  Reportes
+          span.fa.fa-chevron-down
+        ul.nav.child_menu
+          li
+            a(href="/new-report") Nuevo reporte
+          li
+            a(href="/report-list") General
+          li
+            a(href="/report-local-list") Reportes locales
+          li
+            a(href="/report-empresarial-list") Reportes empresariales
+          li
+            a(href="/report") Demo Reporte
+      li
+        a
+          i.fa.fa-archive
+          |  Categorias
+          span.fa.fa-chevron-down
+        ul.nav.child_menu
+          li
+            a(href="/categoria/new") Nueva categoría
+          li
+            a(href="/categoria") Todas las categorias
+      li
+        a
+          i.fa.fa-building
+          |  Empresas
+          span.fa.fa-chevron-down
+        ul.nav.child_menu
+          li
+            a(href="/new-company") Nueva empresa
+          li
+            a(href="/empresas") Directorio de empresas
+      li
+        a(href="/client-list")
+          i.fa.fa-male
+          |  Clientes locales
+      li
+        a
+          i.fa.fa-calendar
+          |  Calendario
+          span.fa.fa-chevron-down
+        ul.nav.child_menu
+          li
+            a(href="#") Ver calendario
+          li
+            a(href="#") Nuevo evento
+      li
+        a(href="/mensajeria")
+          i.fa.fa-inbox
+          |  Mensajeria
+  .menu_section
+    h3 Administración
+    ul.nav.side-menu
+      li
+        a
+          i.fa.fa-users
+          |  Usuarios
+          span.fa.fa-chevron-down
+        ul.nav.child_menu
+          li
+            a(href="/usuario/new") Nuevo usuario
+          li
+            a(href="/usuario") Administrar usuarios
+      li
+        a
+          i.fa.fa-cogs
+          |  Configuracion
+      li
+        a
+          i.fa.fa-bullhorn
+          |  Feedback
+
+      li
+        a(href="javascript:void(0)")
+          i.fa.fa-laptop
+          |  Landing Page
+          span.label.label-success.pull-right Coming Soon
+// /sidebar menu

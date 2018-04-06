@@ -1,0 +1,55 @@
+extends layout
+
+block content
+    div
+        .page-title
+            .title_left
+                h3 Nueva empresa
+
+        .clearfix
+        .row
+            .col-md-12.col-sm-12.col-xs-12
+                .x_panel
+                    .x_title
+                        ul.nav.navbar-right.panel_toolbox
+                            li
+                                a.collapse-link
+                                    i.fa.fa-chevron-up
+                            li.dropdown
+                                a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
+                                    i.fa.fa-wrench
+                                ul.dropdown-menu(role='menu')
+                                    li
+                                        a(href='#') Settings 1
+                                    li
+                                        a(href='#') Settings 2
+                            li
+                                a.close-link
+                                    i.fa.fa-close
+                        .clearfix
+                    .x_content
+                        form.form-horizontal.form-label-left(action="/empresas/" method="post")
+                            .form-group
+                                label.control-label.col-md-3.col-sm-3.col-xs-12(for='nombre')
+                                    | Nombre de la empresa
+                                    span.required *
+                                .col-md-6.col-sm-6.col-xs-12
+                                    input.form-control.col-md-7.col-xs-12(type='text', id="nombre", name="nombre", required='required')
+                            .form-group
+                                label.control-label.col-md-3.col-sm-3.col-xs-12 Prioridad
+                                .col-md-6.col-sm-6.col-xs-12
+                                    select.select2_single.form-control(tabindex='-1' name="estado")
+                                        option(value="0") 0
+                                        option(value='1') 1
+                                        option(value='2') 2
+                                        option(value="3") 3
+                                        option(value='4') 4
+                                        option(value='5') 5
+                                        option(value="6") 6
+                                        option(value='7') 7
+                                        option(value='8') 8
+                                        option(value="9") 9
+                                        option(value='10') 10
+
+                            .form-group
+                                button(type="submit").btn.btn-success Guardar

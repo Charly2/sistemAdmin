@@ -1,0 +1,319 @@
+extends layout
+
+block content
+    style.
+        blockquote {
+            font-size: 15px;
+        }
+    div
+        .page-title
+            .title_left
+                h3
+                    | Reporte cliente local
+                    small  REPLOC #data.info.idreporte}
+            .title_right
+                .col-md-5.col-sm-5.col-xs-12.form-group.pull-right.top_search(style="display:flex;justify-content:flex-end;")
+                    span.input-group
+                        a.btn.btn-success(href="/reporte_local/#{data.info.idreporte}/pdf") Reporte PDF
+        .clearfix
+        .row
+            .col-md-12
+                .x_panel
+                    .x_title
+                        h2 #{data.info.nombreReporte}
+                        .clearfix
+
+                    .x_content
+
+                        .col-md-8.col-sm-8.col-xs-12
+                            ul.stats-overview(style="padding:0")
+                                li(style="width:25%")
+                                    span.name  Fecha de Levantamiento
+                                    span#fec1.value.text-success #{new Date(data.info.fechaini).toLocaleString('en-GB', { timeZone: 'UTC' })}
+                                li(style="width:25%")
+                                    span.name  Fecha de Modificacion
+                                    span#fec2.value.text-success #{new Date(data.info.fechamod).toLocaleString('en-GB', { timeZone: 'UTC' })}
+                                li(style="width:25%")
+                                    span.name  Prioridad
+                                    select.form-control.value.text-success.select_charly#prio_val(onchange="ch_prio(this)")
+                                        each prio in [1,2,3,4,5]
+                                            if prio == data.info.prioridad
+                                                option(value="#{prio}", selected  ) #{prio}
+                                            else
+                                                option(value="#{prio}",  ) #{prio}
+                                li(style="width:25%").hidden-phone
+                                    span.name  Estado
+                                    select.form-control.value.text-success.select_charly#estado_val(_status="0", onchange="ch_estado(this)")
+                                        //option#estado_actual(value="#{data.info.idestado}", selected) #{data.info.idestado}
+                                        each estado in data.estados
+                                            if estado.nombre == data.info.idestado
+                                                option(value="#{estado.nombre}", selected  ) #{estado.nombre}
+                                            else
+                                                option(value="#{estado.nombre}", ) #{estado.nombre}
+
+
+
+                            .col-md-12
+                                section.panel
+
+                                    .panel-body
+                                        //h3.green(style="margin:0") #{data.info.nombreReporte}
+                                        div
+                                            div#vdescription
+                                                p
+                                                    | #{data.info.descripcion}
+                                            //a#viewmore(href="#" style="opacity:1;transition:all .5s;") Ver mas...
+                                            //script(type="text/javascript").
+                                                document.querySelector("a#viewmore").addEventListener('click', function () {
+                                                    document.querySelector("#vdescription").style = "overflow: hidden;max-height: 1000px;transition:all .5s;"
+                                                    this.style = "opacity:0;transition:all .5s;";
+                                                });
+
+
+                            div#msjs
+                                .col-md-12
+                                    h4 Seguimiento & Comentarios
+                                .col-md-12(style="text-align: right;")
+                                    button.btn.green(type='button', data-toggle='modal', data-target='.bs-example-modal-sm', style="background:white;border:1px solid;padding:0 .5em;line-height: 2;")
+                                        i.fa.fa-plus(style="margin-right:.5em")
+                                        | Agregar Comentario
+                                // end of user messages
+
+                            div
+                                ul.messages
+                                    div.message_wrapper(style="padding-top:3em;")
+                                    each comentarioC in data.comentariosC
+                                        li
+                                            img.avatar(src='/images/perfil/user.png', alt='Avatar')
+                                            .message_date
+                                                h3.date.text-info #{new Date(comentarioC.fecha).getDay()}
+                                                p.month #{ new Date(comentarioC.fecha).toDateString().split(' ')[1] }
+                                            .message_wrapper
+                                                h4.heading #{comentarioC.correocliente}
+                                                    span.label.label-info(style="font-size: 10px;margin-left: 1rem;") Cliente
+                                                blockquote.message
+                                                    | #{comentarioC.cuerpo}
+                                                br
+                                                each file in comentarioC.archivos
+                                                    p.url
+                                                        span.fs1.text-info(aria-hidden='true', data-icon='')
+                                                        a(href='/file_local/?id=#{file.idarchivo}.#{file.tipo}')
+                                                            i.fa.fa-paperclip
+                                                            |  #{file.path}
+                                    each comentarioU in data.comentariosU
+                                        li
+                                            img.avatar(src='/images/perfil/#{comentarioU.idusuario}.jpg', alt='Avatar')
+                                            .message_date
+                                                h3.date.text-info #{new Date(comentarioU.fecha).getDay()}
+                                                p.month #{ new Date(comentarioU.fecha).toDateString().split(' ')[1] }
+                                            .message_wrapper
+                                                h4.heading #{comentarioU.nombre}
+                                                    span.label.label-primary(style="font-size: 10px;margin-left: 1rem;") Usuario Sicty
+                                                    span.label.label-danger(class=comentarioU.isnota == '0' ? 'disNO' : 'disSi', style="font-size: 10px;margin-left: 1rem;") Privado
+                                                blockquote.message
+                                                    | #{comentarioU.cuerpo}
+                                                    | #{comentarioU.idmensaje}
+                                                blockquote
+                                                    form(action='/reporte_local/filescomentario/#{comentarioU.idmensaje}/#{data.info.idreporte}',method="POST", enctype='multipart/form-data')
+                                                        label.btn.btn-primary.btn-upload(for='inputImage#{comentarioU.idmensaje}', title='Upload image file')
+                                                            input.sr-only(type='file', name='file', id="inputImage#{comentarioU.idmensaje}")
+                                                            span.fa.fa-upload
+                                                        input(type="submit", value="Subir")
+                                                br
+                                                each file in comentarioU.archivos
+                                                    p.url
+                                                        span.fs1.text-info(aria-hidden='true', data-icon='')
+                                                        a(href='/file_coment/?id=#{file.idarchivo}.#{file.tipo}')
+                                                            i.fa.fa-paperclip
+                                                            |  #{file.path}
+
+                                // end of user messages
+                        // start project-detail sidebar
+                        .col-md-4.col-sm-4.col-xs-12
+                            section.panel
+                                .panel-body
+                                    .row
+                                        .project_detail.col-md-6
+                                            p.title Nombre
+                                            p #{data.info.nombre}
+                                            p.title Correo
+                                            p #{data.info.correocliente}
+                                            p.title Telefono
+                                            p #{data.info.telefono1}
+                                            p.title Categoria
+                                            select.form-control.value.select_charly_gris#cat_val(onchange="ch_cat(this)")
+                                                each categoria in data.categorias
+                                                    if categoria.idcategoria == data.info.idcategoria
+                                                        option(value="#{categoria.idcategoria}",selected) #{categoria.nombre_cat}
+                                                    else
+                                                        option(value="#{categoria.idcategoria}") #{categoria.nombre_cat}
+
+                                        .col-md-6.project_detail
+                                            p.title Operador
+                                            select.form-control.value.select_charly_gris#oper_val(onchange="ch_oper(this)")
+                                                each operador in data.operadores
+                                                    if operador.idusuario == data.info.idoperador
+                                                        option(value="#{operador.idusuario}",selected) #{operador.nombre}
+                                                    else
+                                                        option(value="#{operador.idusuario}") #{operador.nombre}
+                                            p.title(style="margin-top:.2em;") Fecha de Entrega
+                                                p #{data.info.fechaentrega}
+                                        .col-md-6.project_detail
+                                            p.title Propiedades
+                                                ul.list-unstyled.project_files
+                                                    each props in data.propiedades
+                                                        li
+                                                            i.fa.fa-check-square(style="margin-right:.3em;")
+                                                            | #{props}
+
+
+                                    form#formARchivos.dropzone.dz-clickable(action='/reporte_local/files/#{data.info.idreporte}', enctype='multipart/form-data')
+                                        .dz-default.dz-message
+                                            i.fa.fa-plus(style="margin-right:.5em")
+                                            span Agregar archivos
+                                    .col-md-12(style="margin-top:1em;")
+                                       .project_detail
+                                            p.title Archivos
+                                                ul#list_files.list-unstyled.project_files
+                                                    each fileAdd in data.fiAdd
+                                                        li
+                                                            a(href='/file_local/?id=#{fileAdd.idarchivo}.#{fileAdd.tipo}')
+                                                                i.fa.fa-paperclip
+                                                                |  #{fileAdd.path}
+
+    .modal.fade.bs-example-modal-sm.in(tabindex='-1', role='dialog', aria-hidden='true', style='display: none; padding-right: 17px;')
+        .modal-dialog.modal-md
+            .modal-content
+                .modal-header
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') ×
+                    h4#myModalLabel2.modal-title(style="text-align: center;font-weight:bold") Ingresa tu Comentario
+                .modal-body(style="padding-bottom:5em;")
+                    form#comentarioForm(action="/comentarios/local", method="POST")
+                        textarea(id="textarea" required="required" name="body" class="form-control col-md-7 col-xs-12" style="min-width:100%; max-width:100%; width:100%; margin-bottom:1rem; min-height:70px;")
+                        input(name="reporte", type="hidden", value="#{data.info.idreporte}")
+                        input(name="user", type="hidden", value="#{user.idusuario}")
+                        input(name="fecha", type="hidden", id="fecha" value="#{new Date(data.info.fechaini).toLocaleString('en-GB', { timeZone: 'UTC' })}")
+                        div.message_wrapper(style="padding-top:4em;margin-top:2rem;")
+                            .col-md-12(style="text-align: right;")
+                                    div.checkbox
+                                        input(type="checkbox",name="isnota" ,value="1" )
+                                        | Privado
+                            .col-md-12(style="text-align: center;")
+                                button(id="guardar" type="submit" class="btn btn-success") Guardar Comentario
+
+    script(src="/vendor/dropzone/dist/dropzone.js")
+    
+    script.
+        console.dir(#{data.info.idreporte});
+
+        function ch_estado(e){
+           //$('#estado_actual').hide();
+
+            $.ajax({
+                type: "POST",
+                url: '/reporte_local/#{data.info.idreporte}/estado',
+                data: "estado="+$('#estado_val').val()
+            }).done(function () {
+                console.log("Se cambio success");
+                new PNotify({
+                title: 'Actualizacion Correcta',
+                text: 'Se actualizo correctamente el estado',
+                type: 'info',
+                addclass: 'dark',
+                styling: 'bootstrap3',
+                delay: 1000
+            });
+            })
+
+        }
+        function ch_prio(e){
+           //$('#estado_actual').hide();
+
+            $.ajax({
+                type: "POST",
+                url: '/reporte_local/#{data.info.idreporte}/prio',
+                data: "estado="+$('#prio_val').val()
+            }).done(function () {
+                console.log("Se cambio success");
+                new PNotify({
+                title: 'Actualizacion Correcta',
+                text: 'Se actualizo correctamente la prioridad',
+                type: 'info',
+                addclass: 'dark',
+                styling: 'bootstrap3',
+                delay: 1000
+            });
+            })
+
+        }
+        function ch_oper(e){
+           //$('#estado_actual').hide();
+
+            $.ajax({
+                type: "POST",
+                url: '/reporte_local/#{data.info.idreporte}/oper',
+                data: "estado="+$('#oper_val').val()
+            }).done(function () {
+                console.log("Se cambio success");
+                new PNotify({
+                title: 'Actualizacion Correcta',
+                text: 'Se actualizo correctamente la prioridad',
+                type: 'info',
+                addclass: 'dark',
+                styling: 'bootstrap3',
+                delay: 1000
+            });
+            })
+
+        }
+
+        function ch_cat(e){
+           //$('#estado_actual').hide();
+
+            $.ajax({
+                type: "POST",
+                url: '/reporte_local/#{data.info.idreporte}/cat',
+                data: "estado="+$('#cat_val').val()
+            }).done(function () {
+                console.log("Se cambio success");
+                new PNotify({
+                title: 'Actualizacion Correcta',
+                text: 'Se actualizo correctamente la prioridad',
+                type: 'info',
+                addclass: 'dark',
+                styling: 'bootstrap3',
+                delay: 1000
+            });
+            })
+
+        }
+
+        var myDropzone = new Dropzone("#formARchivos", {url: "/reporte_local/files/#{data.info.idreporte}"});
+        myDropzone.on("success", function (file) {
+            console.log(file);
+            setTimeout(function(){
+                myDropzone.removeFile(file);
+            }, 3000);
+
+            //alert("asd");
+            new PNotify({
+                title: 'Archivo Subido Correctamente',
+                text: 'Tu archivo ' + file.name + ' se subio correctamente',
+                type: 'success',
+                styling: 'bootstrap3',
+                delay: 2000
+            });
+            var ele = document.createElement('li');
+            ele.innerHTML='<li><a href="/file_local/?id='+file.xhr.response+'.'+file.name.split('.')[1]+'"><i class="fa fa-paperclip"></i>'+file.name+'</a></li>';
+            document.getElementById('list_files').appendChild(ele)
+
+        });
+
+
+
+
+
+
+
+

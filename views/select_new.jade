@@ -1,0 +1,60 @@
+
+extends layout
+
+block content
+    div
+        .page-title
+            .title_left
+                h3
+                    | Nuevo Reporte
+
+
+        .col-md-12.col-sm-12.col-xs-12
+            .x_panel
+                .x_title
+                    h2 Seleciona el Tipo de Reporte
+                    //ul.nav.navbar-right.panel_toolbox
+                        li
+                            a.collapse-link
+                                i.fa.fa-chevron-up
+                        li.dropdown
+                            a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
+                                i.fa.fa-wrench
+                            ul.dropdown-menu(role='menu')
+                                li
+                                    a(href='#') Settings 1
+                                li
+                                    a(href='#') Settings 2
+                        li
+                            a.close-link
+                                i.fa.fa-close
+                    .clearfix
+                .x_content(style="text-align:center")
+                    .row
+                        .hover_new.animated.flipInY.col-lg-3.col-lg-offset-3.col-md-3.col-md-offset-3.col-sm-6.col-xs-12(onclick="new_empre()")
+                            .tile-stats
+                                i.fa.fa-file-text-o(style="font-size:4em;margin-top:.45em;")
+                                //h3 Nuevo
+                                .count(style="font-size:2em") Reporte Empresarial
+                        .hover_new.animated.flipInY.col-lg-3.col-md-3.col-sm-6.col-xs-12(onclick="new_local()")
+                            .tile-stats
+                                i.fa.fa-file-text-o(style="font-size:4em;margin-top:.45em;")
+                                //h3 Nuevo
+                                .count(style="font-size:2em") Reporte
+                                    br
+                                    |Local
+
+
+
+
+
+            script.
+                function new_local(){
+
+                    window.location.href ="/reporte_local"
+                }
+                function new_empre(){
+                   // alert("asd");
+                    window.location.href = "/reporte_empresa"
+
+                }

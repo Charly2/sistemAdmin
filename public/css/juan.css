@@ -1,0 +1,57 @@
+.disNO{
+    display: none;
+}
+
+.disSi{
+
+}
+.hover_new:hover .tile-stats{
+    border-color: #26B99A;
+    cursor: pointer;
+    background: rgba(38,185,154,.1);
+}
+
+.hover_new:hover .tile-stats .count{
+    color: #26B99A;
+
+}
+.hover_new .tile-stats .count{
+    line-height: 1.3;
+    margin-top: .5em;
+}
+.hover_new:hover .tile-stats i{
+
+}
+
+.hover_new .tile-stats i{
+    color:#26B99A
+}
+
+.select_charly{
+    display: block;
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid #3c763d;
+    color:#3c763d;
+    box-shadow: none;
+    text-align: center;
+}
+
+.select_charly[disabled],.select_charly_gris[disabled]{
+    background: white;
+}
+
+.select_charly_gris{
+    display: block;
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid #73879C;
+    color: #73879C;
+    box-shadow: none;
+    text-align: center;
+    padding: 0;
+}
+
+#formARchivos{
+    margin-top: 1em;
+}

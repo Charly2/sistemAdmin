@@ -1,0 +1,31 @@
+doctype html
+html(lang="es")
+
+  include ./layout_components/head
+
+  body.nav-md
+    .container.body
+      .main_container
+        .col-md-3.left_col
+          .left_col.scroll-view
+            .navbar.nav_title(style="border: 0;")
+              a.site_title(href="index.html")
+                //i.fa.fa-paw
+                img(src="/images/logo.png" style="max-height: 90%;filter: brightness(1);")
+
+            .clearfix
+            // menu profile quick info
+            include ./layout_components/profile
+            // /menu profile quick info
+            br
+            include ./layout_components/sidebar_menu
+            include ./layout_components/footer_controls
+
+        include ./layout_components/top_nav
+
+        .right_col(role="main")
+          //h1 Usuario: #{user}
+          block content
+
+        include ./layout_components/footer
+script(src="/js/fecha.js")
